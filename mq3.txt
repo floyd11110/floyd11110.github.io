@@ -1,0 +1,52 @@
+void mq_3(){
+   int alcohol;
+  int benzine;
+  int rawbenzine;
+  int rawalcohol;
+  float sensor_volt;
+  float RS_gas;
+  float ratio;
+  float sensorValue = analogRead(mq3);
+  sensor_volt = (float)sensorValue / 1024 * 5.00;
+  RS_gas = (200.0 - sensor_volt) / sensor_volt;
+  ratio = RS_gas / 60; // mq-5 ro = 60
+ //Serial.print("Rs/R0 = ");
+ // Serial.println(ratio);
+ // Serial.print("\n\n");
+
+  rawbenzine = ratio * 100.00;
+  rawalcohol = ratio * 100.00;
+  if (ratio >= 0.02 && ratio <= 2.3) {
+   alcohol = map(rawalcohol, 2, 230, 10, 1);
+   alcoholdata = alcohol;
+//    Serial.print("alcohol = ");
+//    Serial.print(alcohol);
+//    Serial.print(" mg/L ");
+//    Serial.print(" | ");
+  } 
+ else{
+  alcohol = 0;
+  alcoholdata = alcohol;
+//      Serial.print("alcohol = ");
+//    Serial.print(alcohol);
+//    Serial.print(" mg/L ");
+//    Serial.print(" | ");
+  }
+ 
+  if (ratio >= .8 && ratio <= 3) {
+    benzine = map(rawbenzine, 80, 300, 10, 1);
+    benzinedata = benzine;
+//    Serial.print("benzine = ");
+//    Serial.print(benzine);
+//    Serial.print(" mg/L");
+//    Serial.print(" | ");
+  }
+  else{
+  benzine = 0;
+  benzinedata = benzine;
+//    Serial.print("benzine = ");
+//    Serial.print(benzine);
+//    Serial.print(" mg/L");
+//    Serial.print(" | ");
+  }
+  }
