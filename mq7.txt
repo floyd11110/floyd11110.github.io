@@ -1,0 +1,37 @@
+void mq_7() {
+  int co;
+  int h2;
+  int rawh2;
+  int rawco;
+  float sensor_volt;
+  float RS_gas;
+  float ratio;
+  float sensorValue = analogRead(mq7);
+  sensor_volt = (float)sensorValue / 1024 * 5.00;
+  RS_gas = (47.0 - sensor_volt) / sensor_volt;
+  ratio = RS_gas / 28.0; // mq-5 ro = 6.5
+  // Serial.print("Rs/R0 = ");
+  // Serial.println(ratio);
+  // Serial.print("\n\n");
+
+  rawh2 = ratio * 100.00;
+  //int rawh21 = constrain()
+  rawco = ratio * 100.00;
+  rawh2 = constrain(rawh2, 4, 130);
+  rawco = constrain(rawco, 9, 170);
+  if (ratio >= .04 && ratio <= 2) {
+    h2 = map(rawh2, 4, 130, 4000, 1);
+    h2data = h2;
+//    Serial.print("h2= ");
+//    Serial.print(h2);
+//    Serial.print(" ppm");
+//    Serial.print(" | ");
+  }
+  else {
+    h2 = 0; 
+    h2data = h2;
+//    Serial.print("h2 = ");
+//    Serial.print(h2);
+//    Serial.print(" ppm");
+//    Serial.print(" | ");
+  }
