@@ -1,0 +1,33 @@
+void mq_2(){
+  int propane;
+  int rawpropane;
+  float sensor_volt;
+  float RS_gas;
+  float ratio;
+  float sensorValue = analogRead(mq2);
+  sensor_volt = (float)sensorValue / 1024 * 5.00;
+  RS_gas = (10.0 - sensor_volt) / sensor_volt;
+  ratio = RS_gas / 9.5; // mq-5 ro = 60
+ //Serial.print("Rs/R0 = ");
+//Serial.println(ratio);
+ // Serial.print("\n\n");
+
+  rawpropane = ratio * 100.00;
+  if (ratio >= 0.8 && ratio <= 1.8) {
+   propane = map(rawpropane, 80, 180, 10000, 10);
+   propanedata = propane;
+//    Serial.print("propane = ");
+//    Serial.print(propane);
+//    Serial.print(" ppm ");
+//    Serial.print(" | ");
+  } 
+ else{
+  propane = 0;
+  propanedata = propane;
+//      Serial.print("propane = ");
+//    Serial.print(propane);
+//    Serial.print(" ppm ");
+//    Serial.print(" | ");
+  }
+ 
+  }
