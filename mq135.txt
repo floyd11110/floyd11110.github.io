@@ -1,0 +1,33 @@
+void mq_135(){
+   int co2;
+  int rawco2;
+  float sensor_volt;
+  float RS_gas;
+  float ratio;
+  float sensorValue = analogRead(mq135);
+  sensor_volt = (float)sensorValue / 1024 * 5.00;
+  RS_gas = (5.0 - sensor_volt) / sensor_volt;
+  ratio = RS_gas / 3.9; // mq-5 ro = 6.5
+ // Serial.print("Rs/R0 = ");
+ //Serial.println(ratio);
+ // Serial.print("\n\n");
+
+  rawco2 = ratio * 100.00;
+  rawco2 = constrain(rawco2,8,170);
+  if (ratio >= .8 && ratio <= 3) {
+    co2 = map(rawco2, 8, 170, 100, 1);
+    co2data = co2;
+  //  Serial.print("co2 = ");
+  // Serial.print(co2);
+   // Serial.print(" ppm");
+    //Serial.print(" | ");
+  } 
+ else{
+  co2 = 0;
+  co2data = co2;
+   //   Serial.print("co2 = ");
+  //  Serial.print(co2);
+  //  Serial.print(" ppm");
+  //  Serial.print(" | ");
+  }
+  }
