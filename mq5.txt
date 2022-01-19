@@ -1,0 +1,50 @@
+void mq_5(){
+  int lpg;
+  int ch4;
+  int rawch4;
+  int rawlpg;
+  float sensor_volt;
+  float RS_gas;
+  float ratio;
+  float sensorValue = analogRead(mq5);
+  sensor_volt = (float)sensorValue / 1024 * 5.26;
+  RS_gas = (5.0 - sensor_volt) / sensor_volt;
+  ratio = RS_gas / 6.5; // mq-5 ro = 6.5
+  rawlpg = ratio * 100.00;
+  int rawlpg1 = constrain(rawlpg,15,195);
+  if (ratio >= .15 && ratio <= 1.95) {
+    lpg = map(rawlpg1, 15, 195, 10000, 1);
+    lpgdata = lpg;
+//    Serial.print("lpg = ");
+//    Serial.print(lpg);
+//    Serial.print(" ppm");
+//    Serial.print(" | ");
+  } 
+ else{
+  lpg = 0;
+  lpgdata = lpg;
+//      Serial.print("lpg = ");
+//    Serial.print(lpg);
+//    Serial.print(" ppm");
+//    Serial.print(" | ");
+  }
+  rawch4 = ratio * 100.00;
+  int rawch41 = constrain(rawch4,20,200);
+  Serial.println(rawch41);
+  if (ratio >= .2 && ratio <= 2) {
+    ch4 = map(rawch41, 20, 200,10000,1);
+    ch4data = ch4;
+//    Serial.print("ch4 = ");
+//    Serial.print(ch4);
+//    Serial.print(" ppm");
+//    Serial.print(" | ");
+  }
+  else{
+  ch4 = 0;
+  ch4data = ch4;
+//    Serial.print("ch4 = ");
+//    Serial.print(ch4);
+//    Serial.print(" ppm");
+//    Serial.print(" | ");
+   }
+  }
